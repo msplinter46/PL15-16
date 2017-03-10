@@ -1,0 +1,204 @@
+%
+% Layout retirado de http://www.di.uminho.pt/~prh/curplc09.html#notas
+%
+\documentclass{report}
+\usepackage[portuges]{babel}
+%\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
+
+\usepackage{url}
+\usepackage{enumerate}
+
+%\usepackage{alltt}
+%\usepackage{fancyvrb}
+\usepackage{listings}
+%LISTING - GENERAL
+\lstset{
+	basicstyle=\small,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	breaklines=true,
+    frame=tB,
+	mathescape=true,
+	escapeinside={(*@}{@*)}
+}
+%
+%\lstset{ %
+%	language=Java,							% choose the language of the code
+%	basicstyle=\ttfamily\footnotesize,		% the size of the fonts that are used for the code
+%	keywordstyle=\bfseries,					% set the keyword style
+%	%numbers=left,							% where to put the line-numbers
+%	numberstyle=\scriptsize,				% the size of the fonts that are used for the line-numbers
+%	stepnumber=2,							% the step between two line-numbers. If it's 1 each line
+%											% will be numbered
+%	numbersep=5pt,							% how far the line-numbers are from the code
+%	backgroundcolor=\color{white},			% choose the background color. You must add \usepackage{color}
+%	showspaces=false,						% show spaces adding particular underscores
+%	showstringspaces=false,					% underline spaces within strings
+%	showtabs=false,							% show tabs within strings adding particular underscores
+%	frame=none,								% adds a frame around the code
+%	%abovecaptionskip=-.8em,
+%	%belowcaptionskip=.7em,
+%	tabsize=2,								% sets default tabsize to 2 spaces
+%	captionpos=b,							% sets the caption-position to bottom
+%	breaklines=true,						% sets automatic line breaking
+%	breakatwhitespace=false,				% sets if automatic breaks should only happen at whitespace
+%	title=\lstname,							% show the filename of files included with \lstinputlisting;
+%											% also try caption instead of title
+%	escapeinside={\%*}{*)},					% if you want to add a comment within your code
+%	morekeywords={*,...}					% if you want to add more keywords to the set
+%}
+
+\usepackage{xspace}
+
+\parindent=0pt
+\parskip=2pt
+
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\textwidth}{18cm}
+\setlength{\headsep}{-1cm}
+\setlength{\textheight}{23cm}
+
+\def\darius{\textsf{Darius}\xspace}
+\def\antlr{\texttt{AnTLR}\xspace}
+\def\pe{\emph{Publicação Eletrónica}\xspace}
+
+\def\titulo#1{\section{#1}}
+\def\super#1{{\em Supervisor: #1}\\ }
+\def\area#1{{\em \'{A}rea: #1}\\[0.2cm]}
+\def\resumo{\underline{Resumo}:\\ }
+
+
+%%%%\input{LPgeneralDefintions}
+
+\title{Processamento de Linguagens (3º ano de MIEI)\\ \textbf{Trabalho Prático 1}\\ Processador de transações da Via Verde}
+\author{Márcia Costa\\ (A67672) \and Manuel Moreno\\ (A) \and Pedro Ribeiro\\ (A67717) }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Com este relatório é pretendido apresentar várias tarefas por nós elaboradas que colminam no desenvolvimento de um filtro de texto, cujo objetivo, será fazer o reconhecimento de determinados padrões de frases.
+	Com recurso ao Sistema de Produção GAWK será desenvolvido um Processador de Texto para ler um extrato mensal da Via Verde. Este processador faz o calculo do número de entradas em cada dia do mês, escreve a lista de locais de saída, calcula o valor total gasto no mês e ainda calcula o valor total gasto no mês apenas em parque.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Introdução} \label{intro}
+Este trabalho envolverá o desenvolvimento de um Processador de Transações de Via Verde  , este é o tema do problema 2.1 do enunciado fornecido. 
+
+
+\begin{description}
+  \item [Enquadramento] Utilização de expressões regulares e filtros de texto com o objetivo de produzir novos documentos a partir de padrões existentes no ficheiro de input. 
+  \item [Conteúdo do documento] Este documento contém a explicação do problema proposto, assim como, a apresentação das soluções produzidas.
+  \item [Resultados -- pontos a evidenciar]Os resultados deste trabalho serão as respostas das alineas solicitadas, sendo que serão apresentados em ficheitos \textit{.html} e grafos.
+  \item [Estrutura do documento] {O presente relatório está dividido em x partes.} 
+\end{description}
+
+letras gregas são estas $ \alpha \beta \gamma \delta $ que aqui demonstro
+
+exemplo simples de fração \[ \frac{\frac{a * b + c}{4-3}}{3*5} \] simples
+
+Mais exemplos de listas enumeradas mas agora com letras:
+\begin{enumerate}[a)]
+\item Listar todas as Pessoas identificadas, sem repetições;
+\item Listar os Países e Cidades marcadas;
+\item Listar as Organizações.
+\end{enumerate}
+
+A mesma enumeração mas no standard numérico
+\begin{description}
+\item[Etape 1:] Listar todas as Pessoas identificadas, sem repetições;
+\item[Etape 2:] Listar os Países e Cidades marcadas;
+\item[Etape 3:] Listar as Organizações.
+\end{description} 
+
+\section*{Estrutura do Relatório} \
+explicar como está organizado o documento, referindo os capítulos existentes em~\cite{Pereira201635}
+e a sua articulação explicando o conteúdo de cada um.
+No capítulo~\ref{ae} faz-se uma análise detalhada do problema proposto
+de modo a poder-se especificar  as entradas, resultados e formas de transformação.\\
+etc. \ldots\\
+No capítulo~\ref{concl} termina-se o relatório com uma síntese do que foi dito,
+as conclusões e o trabalho futuro
+
+\chapter{Análise e Especificação} \label{ae}
+\section{Descrição informal do problema}
+O problema por nós escolhido consiste na análise do ficheiro XML e a partir dele desenvolver um Processador de Texto com o GAWK para ler um extrato mensal da via verde.
+\section{Especificação do Requisitos}
+\subsection{Dados}
+\subsection{Pedidos}
+\subsection{Relações}
+
+\chapter{Concepção/desenho da Resolução}
+\section{Estruturas de Dados}
+\section{Algoritmos}
+
+\chapter{Codificação e Testes}
+\section{Alternativas, Decisões e Problemas de Implementação}
+\section{Testes realizados e Resultados}
+Mostram-se a seguir alguns testes feitos (valores introduzidos) e
+os respectivos resultados obtidos:
+
+%\VerbatimInput{teste1.txt}
+
+
+\chapter{Conclusão} \label{concl}
+Síntese do Documento~\cite{Martini2016a,Hoare73a}.\\
+Estado final do projecto; Análise crítica dos resultados~\cite{Sto77a}.\\
+Trabalho futuro.
+
+\appendix
+\chapter{Código do Programa}
+
+Lista-se a seguir o código \antlr~\cite{Par05} do programa \darius~\cite{NPH2016a} que foi desenvolvido.
+\begin{verbatim}
+public class Aula()
+  {
+    int n, m;
+    int max(int a, int b)
+      {
+       ......
+       return(max);
+      }
+  }
+\end{verbatim}
+
+\begin{verbatim}
+llll sanjdb c kjnjcnjnjj mmmmmmmmmmmmm hhhhhhhhhhhhhhhhhhhhhhhh jjjjjjjjjjjjjjjjjjjjjjjjjjjj kkkkkkkkkkkkkkkkkk
+      aqui deve aparecer o código do programa,
+      tal como está formato no ficheiro-fonte "darius.java"
+      caso indesejável $\varepsilon$
+\end{verbatim}
+
+\begin{lstlisting}[caption={Exemplo de uma Listagem}, label={lstExe1}]
+llll sanjdb c kjnjcnjnjj mmmmmmmmmmmmm hhhhhhhhhhhhhhhhhhhhhhhh jjjjjjjjjjjjjjjjjjjjjjjjjjjj kkkkkkkkkkkkkkkkkk
+      ou então aparecer aqui neste sítio um pouco de matematica $\$$
+      como alternativa ao anterior.
+      e aqui mais um teste $\varepsilon$
+\end{lstlisting}
+
+%É ainda possível importar diretamente o ficheiro:
+%\lstinputlisting{plfiltrobase.l} %input de um ficheiro
+
+\bibliographystyle{alpha}
+\bibliography{relprojLayout}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document} 
